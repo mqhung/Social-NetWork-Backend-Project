@@ -1,0 +1,52 @@
+package com.project.socialnetwork.model;
+
+
+import lombok.Data;
+import org.springframework.validation.annotation.Validated;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Set;
+
+@Entity
+@Validated
+@Data
+public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    private String username;
+    @Size(min = 6, max = 32)
+    private String password;
+    private Date birthday;
+
+    private String firstName;
+    private String lastName;
+
+    private String gender;
+
+    @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,5}$")
+    private String phone;
+
+    @Email
+    private String email;
+
+    private String address;
+
+    private String avatar;
+
+
+    private Timestamp createdDate;
+
+    private boolean blocked;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<AppRole> roles;
+}
