@@ -10,7 +10,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Entity
 @Validated
@@ -47,6 +46,6 @@ public class AppUser {
 
     private boolean blocked;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<AppRole> roles;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private AppRole appRole;
 }

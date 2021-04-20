@@ -11,8 +11,13 @@ public class Relationship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private enum status{
+        PENDING,
+        ACCEPTED,
+        DENIED
+    }
     @ManyToOne
-    private Status status;
-    private Long firstUserId;
-    private Long secondUserId;
+    private AppUser firstUser;
+    @ManyToOne
+    private AppUser secondUser;
 }

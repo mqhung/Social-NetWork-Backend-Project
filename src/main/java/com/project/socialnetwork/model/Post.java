@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Data
@@ -14,8 +13,12 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private AppUser user;
-    private Long statusId;
+    private AppUser appUser;
+    private enum status{
+        PUBLIC,
+        FRIENDONLY,
+        PRIVATE
+    }
     private String content;
     private Timestamp createdTime;
     private String image;

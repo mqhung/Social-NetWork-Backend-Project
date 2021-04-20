@@ -14,7 +14,7 @@ public class Comment {
     private Long id;
 
     @ManyToOne
-    private AppUser user;
+    private AppUser appUser;
 
     private Long postId;
 
