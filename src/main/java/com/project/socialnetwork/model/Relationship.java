@@ -13,10 +13,8 @@ public class Relationship {
     private Long id;
     @ManyToOne
     private RelationshipStatus status;
-    @ManyToOne
-    private AppUser firstUser;
-    @ManyToOne
-    private AppUser secondUser;
+    private Long firstUserId;
+    private Long secondUserId;
 
 
 }
