@@ -17,14 +17,10 @@ public class CommentController {
     @Autowired
     public CommentService commentService;
 
-//    @GetMapping("/show")
-//    public ResponseEntity<Iterable<Comment>> showAll() {
-//        return new ResponseEntity<>(commentService.findAll(), HttpStatus.OK);
-//    }
-
     @PostMapping("/create/{postId}")
     public ResponseEntity<Comment> createComment(@PathVariable Long postId, @RequestBody Comment comment) {
         AppUser currentUser = new AppUser();
+        //code tạm để test postman
         currentUser.setId(1L);
         comment.setAppUser(currentUser);
         comment.setPostId(postId);

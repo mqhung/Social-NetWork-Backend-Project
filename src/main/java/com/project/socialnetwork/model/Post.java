@@ -14,13 +14,10 @@ public class Post {
     private Long id;
     @ManyToOne
     private AppUser appUser;
-    private enum status{
-        PUBLIC,
-        FRIENDONLY,
-        PRIVATE
-    }
+
     private String content;
     private Timestamp createdTime;
     private String image;
-
+    @ManyToOne
+    private PostStatus status;
 }
