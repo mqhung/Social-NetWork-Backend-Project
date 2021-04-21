@@ -55,4 +55,9 @@ public class UserService implements IUserService{
         }
         return UserPrinciple.build(user);
     }
+
+    @Override
+    public boolean existsUserByUsername(String username) {
+        return userRepository.existsAppUserByUsername(username);
+    }
 }
