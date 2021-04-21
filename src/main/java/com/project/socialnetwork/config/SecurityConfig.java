@@ -28,16 +28,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostConstruct
-    public void init(){
-        List<AppUser> users = (List<AppUser>) userService.findALl();
-        if(users.isEmpty()){
-            AppUser user = new AppUser();
-            user.setUsername("admin");
-            user.setPassword(passwordEncoder.encode("123456"));
-            userService.save(user);
-        }
-    }
+//    @PostConstruct
+//    public void init(){
+//        List<AppUser> users = (List<AppUser>) userService.findALl();
+//        if(users.isEmpty()){
+//            AppUser user = new AppUser();
+//            user.setUsername("admin");
+//            user.setPassword(passwordEncoder.encode("123456"));
+//            userService.save(user);
+//        }
+//    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
