@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,5 +55,10 @@ public class AccountController {
             return new ResponseEntity<>("This account was blocked 11111", HttpStatus.NOT_ACCEPTABLE);
         }
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId() , userDetails.getUsername(), userDetails.getAuthorities()));
+    }
+
+    @GetMapping("/hello")
+    public ResponseEntity<?> hello(){
+        return new ResponseEntity<>(userService.findALl(), HttpStatus.OK);
     }
 }
