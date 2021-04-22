@@ -38,4 +38,6 @@ out/
 *.env
 thinh.env
 hung.env
+dat.env
+nghia.env
 trung.env
