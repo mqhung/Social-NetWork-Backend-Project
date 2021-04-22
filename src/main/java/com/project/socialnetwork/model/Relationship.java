@@ -16,4 +16,11 @@ public class Relationship {
     private Long firstUserId;
     private Long secondUserId;
 
+    public Relationship(Long firstUserId, Long id) {
+
+    }
+
+    public Relationship() {
+
+    }
 }
