@@ -5,13 +5,15 @@ import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+@Component
 @Service
 public class JwtService {
-    private static final String SECRET_KEY = "11223344";
+    private static final String SECRET_KEY = "123456789";
     private static final long EXPIRE_TIME = 86400000000L;
     public static final Logger logger = LoggerFactory.getLogger(JwtService.class.getName());
 
