@@ -39,6 +39,7 @@ public class RelationshipService implements IRelationshipService {
     @Override
     public Relationship findRelationshipByFirstUserIdAndSecondUserId(Long firstUserId, Long secondUserId) {
         return relationshipRepository.findRelationshipByFirstUserIdAndSecondUserId(firstUserId, secondUserId);
+//    return relationshipRepository.findRelationship(firstUserId,secondUserId);
     }
 
     @Override

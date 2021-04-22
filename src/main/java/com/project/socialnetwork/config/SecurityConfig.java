@@ -80,7 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/",
                         "/login",
-                        "/register")
+                        "/register",
+                        "/relationship/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable();
