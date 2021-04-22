@@ -13,8 +13,8 @@ public class JwtResponse {
     private String username;
     private Collection<? extends GrantedAuthority> roles;
 
-    public JwtResponse(String token, Long id, String username, Collection<? extends GrantedAuthority> roles) {
-        this.token = token;
+    public JwtResponse(String accessToken, Long id, String username, Collection<? extends GrantedAuthority> roles) {
+        this.token = accessToken;
         this.id = id;
         this.username = username;
         this.roles = roles;
