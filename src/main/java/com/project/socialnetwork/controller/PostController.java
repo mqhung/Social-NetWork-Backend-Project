@@ -4,6 +4,8 @@ package com.project.socialnetwork.controller;
 import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Post;
 import com.project.socialnetwork.service.postService.IPostService;
+import com.project.socialnetwork.service.user.IUserService;
+import com.project.socialnetwork.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 public class PostController {
 
     @Autowired
     IPostService postService;
+
+    @Autowired
+    IUserService userService;
 
     @GetMapping("/get-post/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable Long id) {
@@ -33,8 +38,9 @@ public class PostController {
     public ResponseEntity<List<Post>> getAllPost() {
 
         //waiting for method get current user
-        AppUser currentUser = new AppUser();
-        currentUser.setId(1L);
+//        AppUser currentUser = new AppUser();
+//        currentUser.setId(1L);
+        AppUser currentUser = userService.getCurrentUser();
 
         List<Post> postList = postService.findAllByAppUser(currentUser);
 
