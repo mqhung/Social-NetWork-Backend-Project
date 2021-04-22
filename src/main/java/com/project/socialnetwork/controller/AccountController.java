@@ -49,7 +49,7 @@ public class AccountController {
 
         String jwt = jwtService.generateAccessToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        AppUser currentUser = userService.findUserByUsername(user.getUsername());
+        AppUser currentUser = userService.getCurrentUser();
         if (currentUser.isBlocked()) {
             return new ResponseEntity<>("This account was blocked 11111", HttpStatus.NOT_ACCEPTABLE);
         }
