@@ -8,6 +8,7 @@ import com.project.socialnetwork.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -79,6 +80,21 @@ public class UserService implements IUserService{
     @Override
     public boolean existsUserByUsername(String username) {
         return userRepository.existsAppUserByUsername(username);
+    }
+
+    @Override
+    public AppUser getCurrentUser() {
+        AppUser user;
+        String userName;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        user = this.findUserByUsername(userName);
+        return user;
     }
 
 
