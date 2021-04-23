@@ -78,7 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/register", "/relationship/listFriend/**",
                         "/users/**")
                 .permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/hello").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN").antMatchers("/**").permitAll()
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
