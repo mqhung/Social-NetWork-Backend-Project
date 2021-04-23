@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IRelationshipRepository extends JpaRepository<Relationship, Long> {
-    Iterable<Relationship> findAllBySecondUserIdAndStatus(Long id, RelationshipStatus status);
-    Relationship findRelationshipByFirstUserIdAndSecondUserId(Long firstUserId, Long secondUserId);
-    Iterable<Relationship> findAllByFirstUserIdOrSecondUserIdAndStatus(Long firstUserId, Long secondUserId, RelationshipStatus status);
-    Iterable<Relationship> findAllByFirstUserIdAndStatusOrSecondUserIdAndStatus(Long firstUserId, RelationshipStatus firstStatus, Long secondUserId, RelationshipStatus secondStatus);
+    Iterable<Relationship> findAllByUserReceiveIdAndStatus(Long userReceiveId, RelationshipStatus status);
+    Relationship findRelationshipByUserSendIdAndUserReceiveId(Long userSendId, Long userReceiveId);
+    Iterable<Relationship> findAllByUserSendIdOrUserReceiveIdAndStatus(Long userSendId, Long userReceiveId, RelationshipStatus status);
+    Iterable<Relationship> findAllByUserSendIdAndStatusOrUserReceiveIdAndStatus(Long userSendId, RelationshipStatus firstStatus, Long userReceiveId, RelationshipStatus secondStatus);
 
 //    @Query(value = "select * from relationship where first_user_id = ? and second_user_id = ?", nativeQuery = true)
 //    Relationship findRelationship(Long id1, Long id2);

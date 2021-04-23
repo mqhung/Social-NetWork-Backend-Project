@@ -13,14 +13,13 @@ public class Relationship {
     private Long id;
     @ManyToOne
     private RelationshipStatus status;
-    private Long firstUserId;
-    private Long secondUserId;
-
-    public Relationship(Long firstUserId, Long id) {
-
-    }
+    private Long userSendId;
+    private Long userReceiveId;
 
     public Relationship() {
+    }
+
+    public Relationship(Long id, Long userReceiveId) {
 
     }
 }
