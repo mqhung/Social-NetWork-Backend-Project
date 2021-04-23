@@ -12,7 +12,4 @@ public interface IRelationshipRepository extends JpaRepository<Relationship, Lon
     Relationship findRelationshipByUserSendIdAndUserReceiveId(Long userSendId, Long userReceiveId);
     Iterable<Relationship> findAllByUserSendIdOrUserReceiveIdAndStatus(Long userSendId, Long userReceiveId, RelationshipStatus status);
     Iterable<Relationship> findAllByUserSendIdAndStatusOrUserReceiveIdAndStatus(Long userSendId, RelationshipStatus firstStatus, Long userReceiveId, RelationshipStatus secondStatus);
-
-//    @Query(value = "select * from relationship where first_user_id = ? and second_user_id = ?", nativeQuery = true)
-//    Relationship findRelationship(Long id1, Long id2);
 }

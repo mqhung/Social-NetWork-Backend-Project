@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/users")
@@ -15,7 +17,7 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<AppUser>> findAll() {
+    public ResponseEntity<List<AppUser>> findAll() {
         return new ResponseEntity<>(userService.findALl(), HttpStatus.OK);
     }
 
