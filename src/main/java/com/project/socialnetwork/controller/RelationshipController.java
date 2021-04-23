@@ -47,26 +47,41 @@ public class RelationshipController {
             newRelationship.setUserSendId(currentUser.getId());
             newRelationship.setUserReceiveId(userReceiveId);
             relationshipService.saveRelationship(newRelationship);
-            return new ResponseEntity<>("da gui yeu cau ket ban", HttpStatus.OK);
-        } else {
-            relationship.setStatus(statusService.findStatusById(2L));
-            relationshipService.saveRelationship(relationship);
-            return new ResponseEntity<>("da la ban be", HttpStatus.OK);
         }
+        return new ResponseEntity<>("da gui yeu cau ket ban", HttpStatus.OK);
     }
 
     @PutMapping("/edit/{userSendId}/{statusId}")
     public ResponseEntity<?> HandleFriendRequest(@PathVariable Long userSendId, @PathVariable Long statusId) {
 //        AppUser currentUser = userService.getCurrentUser();
         AppUser currentUser = new AppUser();
-        currentUser.setId(2L);
+        currentUser.setId(4L);
         Relationship relationship = relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userSendId, currentUser.getId());
         if(relationship.getStatus().getId() != 2) {
             relationship.setStatus(statusService.findStatusById(statusId));
             return new ResponseEntity<>(relationshipService.saveRelationship(relationship),HttpStatus.OK);
         }
         return new ResponseEntity<>("da la ban",HttpStatus.OK);
-
+    }
+    @PutMapping("/unfriend/{userSendId}")
+    public ResponseEntity<Relationship> unFriend(@PathVariable Long userSendId){
+        //        AppUser currentUser = userService.getCurrentUser();
+        AppUser currentUser = new AppUser();
+        currentUser.setId(2L);
+        Relationship relationship = this.checkRelationship(currentUser.getId(), userSendId);
+        if (relationship != null){
+            relationshipService.deleteRelationship(relationship.getId());
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/checkFriend/{userSendId}/{userReceiveId}")
+    public ResponseEntity<Long> checkFriend(@PathVariable Long userSendId,@PathVariable Long userReceiveId){
+        Long status;
+        Relationship relationship = this.checkRelationship(userSendId,userReceiveId);
+        if (relationship!=null){
+            status = relationship.getStatus().getId();
+        }else status=0L;
+        return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
     @GetMapping("/listFriend/{userId}")
@@ -87,6 +102,8 @@ public class RelationshipController {
         Relationship relationship;
         if (relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userSendId, userReceiveId) != null) {
             relationship = relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userSendId, userReceiveId);
+        } else if(relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userReceiveId, userSendId) != null){
+            relationship = relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userReceiveId,userSendId);
         } else relationship = null;
         return relationship;
     }
