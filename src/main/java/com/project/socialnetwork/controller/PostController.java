@@ -5,19 +5,19 @@ import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Post;
 import com.project.socialnetwork.service.postService.IPostService;
 import com.project.socialnetwork.service.user.IUserService;
-import com.project.socialnetwork.service.user.UserService;
+
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/post")
 @CrossOrigin("*")
 public class PostController {
 
@@ -38,9 +38,9 @@ public class PostController {
     public ResponseEntity<List<Post>> getAllPost() {
 
         //waiting for method get current user
-//        AppUser currentUser = new AppUser();
-//        currentUser.setId(1L);
-        AppUser currentUser = userService.getCurrentUser();
+        AppUser currentUser = new AppUser();
+        currentUser.setId(1L);
+//        AppUser currentUser = userService.getCurrentUser();
 
         List<Post> postList = postService.findAllByAppUser(currentUser);
 
@@ -50,10 +50,15 @@ public class PostController {
 
     @DeleteMapping("/delete-post/{id}")
     public ResponseEntity<Post> deletePostById(@PathVariable Long id) {
+
+        AppUser currentUser = new AppUser();
+        currentUser.setId(1L);
         //to show the deleted post
         Post p = postService.findById(id);
-
-        postService.deleteById(id);
+        //check
+        if (currentUser.equals(p.getAppUser())) {
+            postService.deleteById(id);
+        }
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
