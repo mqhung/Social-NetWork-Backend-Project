@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/relationship")
 public class RelationshipController {
