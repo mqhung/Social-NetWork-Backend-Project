@@ -32,22 +32,24 @@ public class RelationshipService implements IRelationshipService {
     }
 
     @Override
-    public Iterable<Relationship> findAllBySecondUserIdAndStatus(Long id, RelationshipStatus status) {
-        return relationshipRepository.findAllBySecondUserIdAndStatus(id, status);
+    public Iterable<Relationship> findAllByUserReceiveIdAndStatus(Long userReceiveId, RelationshipStatus status) {
+        return relationshipRepository.findAllByUserReceiveIdAndStatus(userReceiveId, status);
     }
 
     @Override
-    public Relationship findRelationshipByFirstUserIdAndSecondUserId(Long firstUserId, Long secondUserId) {
-        return relationshipRepository.findRelationshipByFirstUserIdAndSecondUserId(firstUserId, secondUserId);
+    public Relationship findRelationshipByUserSendIdAndUserReceiveId(Long userSendId, Long userReceiveId) {
+        return relationshipRepository.findRelationshipByUserSendIdAndUserReceiveId(userSendId, userReceiveId);
     }
 
     @Override
-    public Iterable<Relationship> findAllByFirstUserIdOrSecondUserIdAndStatus(Long firstUserId, Long secondUserId, RelationshipStatus status) {
-        return relationshipRepository.findAllByFirstUserIdOrSecondUserIdAndStatus(firstUserId, secondUserId, status);
+    public Iterable<Relationship> findAllByUserSendIdOrUserReceiveIdAndStatus(Long userSendId, Long userReceiveId, RelationshipStatus status) {
+        return relationshipRepository.findAllByUserSendIdOrUserReceiveIdAndStatus(userSendId, userReceiveId, status);
     }
 
     @Override
-    public Iterable<Relationship> findAllByFirstUserIdAndStatusOrSecondUserIdAndStatus(Long firstUserId, RelationshipStatus firstStatus, Long secondUserId, RelationshipStatus secondStatus) {
-        return relationshipRepository.findAllByFirstUserIdAndStatusOrSecondUserIdAndStatus(firstUserId, firstStatus, secondUserId, secondStatus);
+    public Iterable<Relationship> findAllByUserSendIdAndStatusOrUserReceiveIdAndStatus(Long userSendId, RelationshipStatus firstStatus, Long userReceiveId, RelationshipStatus secondStatus) {
+        return relationshipRepository.findAllByUserSendIdAndStatusOrUserReceiveIdAndStatus(userSendId, firstStatus, userReceiveId, secondStatus);
     }
+
+
 }
