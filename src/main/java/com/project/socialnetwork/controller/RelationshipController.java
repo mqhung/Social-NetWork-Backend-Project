@@ -43,8 +43,8 @@ public class RelationshipController {
             Relationship newRelationship = new Relationship(currentUser.getId(), secondUserId);
             RelationshipStatus status = statusService.findStatusById(1L);
             newRelationship.setStatus(status);
-            newRelationship.setFirstUserId(currentUser.getId());
-            newRelationship.setSecondUserId(secondUserId);
+            newRelationship.setUserSendId(currentUser.getId());
+            newRelationship.setUserReceiveId(secondUserId);
             relationshipService.saveRelationship(newRelationship);
             return new ResponseEntity<>("da gui yeu cau ket ban", HttpStatus.OK);
         } else {
@@ -60,9 +60,9 @@ public class RelationshipController {
         List<AppUser> users = new ArrayList<>();
         for (Relationship relationship : relationships
         ) {
-            if (relationship.getFirstUserId().equals(userId)) {
-                users.add(userService.findById(relationship.getSecondUserId()));
-            } else users.add(userService.findById(relationship.getFirstUserId()));
+            if (relationship.getUserSendId().equals(userId)) {
+                users.add(userService.findById(relationship.getUserReceiveId()));
+            } else users.add(userService.findById(relationship.getUserSendId()));
 
         }
         return new ResponseEntity<Iterable<AppUser>>(users, HttpStatus.OK);

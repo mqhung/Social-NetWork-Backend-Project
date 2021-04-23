@@ -13,10 +13,10 @@ public class Relationship {
     private Long id;
     @ManyToOne
     private RelationshipStatus status;
-    private Long firstUserId;
-    private Long secondUserId;
+    private Long userSendId;
+    private Long userReceiveId;
 
-    public Relationship(Long firstUserId, Long id) {
+    public Relationship(Long userSendId, Long id) {
 
     }
 
