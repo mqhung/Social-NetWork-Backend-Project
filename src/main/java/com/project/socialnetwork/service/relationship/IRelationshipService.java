@@ -12,12 +12,12 @@ public interface IRelationshipService {
 
     Relationship findRelationshipById(Long id);
 
-    Iterable<Relationship> findAllBySecondUserIdAndStatus(Long id, RelationshipStatus status);
+    Iterable<Relationship> findAllByUserReceiveIdAndStatus(Long userReceiveId, RelationshipStatus status);
 
-    Relationship findRelationshipByFirstUserIdAndSecondUserId(Long firstUserId, Long secondUserId);
+    Relationship findRelationshipByUserSendIdAndUserReceiveId(Long userSendId, Long userReceiveId);
 
-    Iterable<Relationship> findAllByFirstUserIdOrSecondUserIdAndStatus(Long firstUserId, Long secondUserId, RelationshipStatus status);
+    Iterable<Relationship> findAllByUserSendIdOrUserReceiveIdAndStatus(Long userSendId, Long userReceiveId, RelationshipStatus status);
 
-    Iterable<Relationship> findAllByFirstUserIdAndStatusOrSecondUserIdAndStatus(Long firstUserId, RelationshipStatus firstStatus, Long secondUserId, RelationshipStatus secondStatus);
+    Iterable<Relationship> findAllByUserSendIdAndStatusOrUserReceiveIdAndStatus(Long userSendId, RelationshipStatus firstStatus, Long userReceiveId, RelationshipStatus secondStatus);
 
 }

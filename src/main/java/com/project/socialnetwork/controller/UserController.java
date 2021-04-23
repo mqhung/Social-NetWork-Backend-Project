@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Iterable<AppUser>> findAll() {
         return new ResponseEntity<>(userService.findALl(), HttpStatus.OK);
     }

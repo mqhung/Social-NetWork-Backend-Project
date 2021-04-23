@@ -16,11 +16,10 @@ public class Relationship {
     private Long userSendId;
     private Long userReceiveId;
 
-    public Relationship(Long userSendId, Long id) {
-
+    public Relationship() {
     }
 
-    public Relationship() {
+    public Relationship(Long id, Long userReceiveId) {
 
     }
 }
