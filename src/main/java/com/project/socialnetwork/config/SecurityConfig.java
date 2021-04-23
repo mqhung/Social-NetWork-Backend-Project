@@ -1,6 +1,5 @@
 package com.project.socialnetwork.config;
 
-import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import javax.annotation.PostConstruct;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -80,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/",
                         "/login",
-                        "/register")
+                        "/register", "/relationship/listFriend/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable();

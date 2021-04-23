@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/relationship")
 public class RelationshipController {
@@ -33,6 +34,7 @@ public class RelationshipController {
     public ResponseEntity<Iterable<Relationship>> getAll() {
         return new ResponseEntity<>(relationshipService.findAllRelationship(), HttpStatus.OK);
     }
+
     @PostMapping("/create/{secondUserId}")
     public ResponseEntity<?> sendFriendRequest(@PathVariable Long secondUserId) {
         AppUser currentUser = userService.getCurrentUser();
@@ -51,6 +53,7 @@ public class RelationshipController {
             return new ResponseEntity<>("da la ban be", HttpStatus.OK);
         }
     }
+
     @GetMapping("/listFriend/{userId}")
     public ResponseEntity<Iterable<AppUser>> findAllFriend(@PathVariable Long userId) {
         Iterable<Relationship> relationships = relationshipService.findAllByFirstUserIdAndStatusOrSecondUserIdAndStatus(userId, statusService.findStatusById(2L), userId, statusService.findStatusById(2L));
@@ -65,10 +68,10 @@ public class RelationshipController {
         return new ResponseEntity<Iterable<AppUser>>(users, HttpStatus.OK);
     }
 
-    public Relationship checkRelationship(Long firstUserId, Long secondUserId){
+    public Relationship checkRelationship(Long firstUserId, Long secondUserId) {
         Relationship relationship;
-        if (relationshipService.findRelationshipByFirstUserIdAndSecondUserId(firstUserId,secondUserId) != null){
-            relationship = relationshipService.findRelationshipByFirstUserIdAndSecondUserId(firstUserId,secondUserId);
+        if (relationshipService.findRelationshipByFirstUserIdAndSecondUserId(firstUserId, secondUserId) != null) {
+            relationship = relationshipService.findRelationshipByFirstUserIdAndSecondUserId(firstUserId, secondUserId);
         } else relationship = null;
         return relationship;
     }
