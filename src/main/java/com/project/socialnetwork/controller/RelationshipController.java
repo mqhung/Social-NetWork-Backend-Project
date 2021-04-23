@@ -22,7 +22,7 @@ public class RelationshipController {
     private IRelationshipService relationshipService;
     @Autowired
     private IStatusService statusService;
-    @Autowired
+     @Autowired
     private IUserService userService;
 
     @ModelAttribute("listStatus")
