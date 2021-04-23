@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/relationship")
 public class RelationshipController {
@@ -21,7 +22,7 @@ public class RelationshipController {
     private IRelationshipService relationshipService;
     @Autowired
     private IStatusService statusService;
-     @Autowired
+    @Autowired
     private IUserService userService;
 
     @ModelAttribute("listStatus")
@@ -61,11 +62,11 @@ public class RelationshipController {
         AppUser currentUser = new AppUser();
         currentUser.setId(2L);
         Relationship relationship = relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userSendId, currentUser.getId());
-        if(relationship.getStatus().getId() != 2) {
+        if (relationship.getStatus().getId() != 2) {
             relationship.setStatus(statusService.findStatusById(statusId));
-            return new ResponseEntity<>(relationshipService.saveRelationship(relationship),HttpStatus.OK);
+            return new ResponseEntity<>(relationshipService.saveRelationship(relationship), HttpStatus.OK);
         }
-        return new ResponseEntity<>("da la ban",HttpStatus.OK);
+        return new ResponseEntity<>("da la ban", HttpStatus.OK);
 
     }
 
