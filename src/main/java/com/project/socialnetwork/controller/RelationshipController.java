@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/relationship")
 public class RelationshipController {
@@ -104,5 +105,16 @@ public class RelationshipController {
         return relationship;
     }
 
+        @GetMapping("/listPendingFriend/{userId}")
+    public ResponseEntity<Iterable<AppUser>> findMutualFriend(@PathVariable Long userId) {
+        Iterable<Relationship> relationships = relationshipService.findAllByUserReceiveIdAndStatus(userId, statusService.findStatusById(1L));
 
+        List<AppUser> users = new ArrayList<>();
+        for (Relationship relationship : relationships
+        ) {
+            users.add(userService.findById(relationship.getUserSendId()));
+        }
+
+        return new ResponseEntity<Iterable<AppUser>>(users, HttpStatus.OK);
+    }
 }
