@@ -80,7 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/",
                         "/login",
-                        "/register")
+                        "/register",
+                        "/relationship/**")
                 .permitAll()
                 .antMatchers("/hello", "/post/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN").antMatchers("/**").permitAll()
