@@ -111,7 +111,7 @@ public class RelationshipController {
         return relationship;
     }
 
-        @GetMapping("/listMutualFriend/{userId}")
+        @GetMapping("/listPendingFriend/{userId}")
     public ResponseEntity<Iterable<AppUser>> findMutualFriend(@PathVariable Long userId) {
         Iterable<Relationship> relationships = relationshipService.findAllByUserReceiveIdAndStatus(userId, statusService.findStatusById(1L));
 
