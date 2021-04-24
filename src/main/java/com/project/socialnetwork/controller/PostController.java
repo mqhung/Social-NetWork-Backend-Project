@@ -34,13 +34,17 @@ public class PostController {
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
-    @GetMapping("/get-all-post")
-    public ResponseEntity<List<Post>> getAllPost() {
+    @GetMapping("/get-all-post-by-user-id/{id}")
+    public ResponseEntity<List<Post>> getAllPostByUserId(@PathVariable Long id){
+        AppUser guestUser  = userService.findById(id);
 
-        //waiting for method get current user
-        AppUser currentUser = new AppUser();
-        currentUser.setId(1L);
-//        AppUser currentUser = userService.getCurrentUser();
+        return new ResponseEntity<>(postService.findAllByAppUser(guestUser),HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-post")
+    public ResponseEntity<List<Post>> getAllMyPost() {
+
+        AppUser currentUser = userService.getCurrentUser();
 
         List<Post> postList = postService.findAllByAppUser(currentUser);
 
@@ -51,8 +55,10 @@ public class PostController {
     @DeleteMapping("/delete-post/{id}")
     public ResponseEntity<Post> deletePostById(@PathVariable Long id) {
 
-        AppUser currentUser = new AppUser();
-        currentUser.setId(1L);
+//        AppUser currentUser = new AppUser();
+//        currentUser.setId(1L);
+        AppUser currentUser = userService.getCurrentUser();
+
         //to show the deleted post
         Post p = postService.findById(id);
         //check
@@ -64,7 +70,11 @@ public class PostController {
 
     @PostMapping("/create-new-post")
     public ResponseEntity<Post> createNewPost(@RequestBody Post post) {
+        AppUser currentUser = userService.getCurrentUser();
+
         post.setCreatedTime(Timestamp.valueOf(LocalDateTime.now()));
+        post.setAppUser(currentUser);
+
 
         //to show latest created post
         Post p = postService.save(post);
@@ -79,5 +89,16 @@ public class PostController {
 
         Post p = postService.save(post);
         return new ResponseEntity<>(p, HttpStatus.OK);
+    }
+
+
+
+    @GetMapping("/get-current-user")
+    public ResponseEntity<AppUser> getCurrentUser() {
+        AppUser currentUser  = userService.getCurrentUser();
+        //delete password before send to client
+        currentUser.setPassword("");
+
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 }
