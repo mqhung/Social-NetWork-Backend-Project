@@ -3,24 +3,32 @@ package com.project.socialnetwork.controller;
 
 import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Post;
+import com.project.socialnetwork.model.PostStatus;
 import com.project.socialnetwork.service.postService.IPostService;
+import com.project.socialnetwork.service.postStatus.IPostStatusService;
+import com.project.socialnetwork.service.user.IUserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
-//@CrossOrigin("*")
+@RequestMapping("/post")
+@CrossOrigin("*")
 public class PostController {
 
     @Autowired
     IPostService postService;
+
+    @Autowired
+    IUserService userService;
+    @Autowired
+    IPostStatusService postStatusService;
 
     @GetMapping("/get-post/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable Long id) {
@@ -29,12 +37,17 @@ public class PostController {
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
-    @GetMapping("/get-all-post")
-    public ResponseEntity<List<Post>> getAllPost() {
+    @GetMapping("/get-all-post-by-user-id/{id}")
+    public ResponseEntity<List<Post>> getAllPostByUserId(@PathVariable Long id) {
+        AppUser guestUser = userService.findById(id);
 
-        //waiting for method get current user
-        AppUser currentUser = new AppUser();
-        currentUser.setId(1L);
+        return new ResponseEntity<>(postService.findAllByAppUser(guestUser), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-post")
+    public ResponseEntity<List<Post>> getAllMyPost() {
+
+        AppUser currentUser = userService.getCurrentUser();
 
         List<Post> postList = postService.findAllByAppUser(currentUser);
 
@@ -44,16 +57,27 @@ public class PostController {
 
     @DeleteMapping("/delete-post/{id}")
     public ResponseEntity<Post> deletePostById(@PathVariable Long id) {
+
+//        AppUser currentUser = new AppUser();
+//        currentUser.setId(1L);
+        AppUser currentUser = userService.getCurrentUser();
+
         //to show the deleted post
         Post p = postService.findById(id);
-
-        postService.deleteById(id);
+        //check
+        if (currentUser.equals(p.getAppUser())) {
+            postService.deleteById(id);
+        }
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
     @PostMapping("/create-new-post")
     public ResponseEntity<Post> createNewPost(@RequestBody Post post) {
+        AppUser currentUser = userService.getCurrentUser();
+
         post.setCreatedTime(Timestamp.valueOf(LocalDateTime.now()));
+        post.setAppUser(currentUser);
+
 
         //to show latest created post
         Post p = postService.save(post);
@@ -68,5 +92,27 @@ public class PostController {
 
         Post p = postService.save(post);
         return new ResponseEntity<>(p, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/get-current-user")
+    public ResponseEntity<AppUser> getCurrentUser() {
+        AppUser currentUser = userService.getCurrentUser();
+        //delete password before send to client
+        currentUser.setPassword(null);
+
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-user-by-id/{id}")
+    public ResponseEntity<AppUser> getUserById(@PathVariable Long id) {
+        AppUser user = userService.findById(id);
+        user.setPassword(null);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-Post-status")
+    public ResponseEntity<List<PostStatus>> getAllPostStatus() {
+        return new ResponseEntity<>(postStatusService.findALl(), HttpStatus.OK);
     }
 }
