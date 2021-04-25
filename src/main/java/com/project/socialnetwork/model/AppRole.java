@@ -16,4 +16,5 @@ public class AppRole {
     private Long id;
 
     private String name;
+
 }
