@@ -117,8 +117,8 @@ public class PostController {
     }
 
     @GetMapping("/getAllMyFriendPost")
-       public  ResponseEntity<List<Post>> getAllPostByUserId(){
-        App
-        }
+    public ResponseEntity<List<Post>> getAllPostByUserId() {
+        return null;
     }
+
 }
