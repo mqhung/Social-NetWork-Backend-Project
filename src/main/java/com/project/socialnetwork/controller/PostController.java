@@ -3,10 +3,11 @@ package com.project.socialnetwork.controller;
 
 import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Post;
+import com.project.socialnetwork.model.PostStatus;
 import com.project.socialnetwork.service.postService.IPostService;
+import com.project.socialnetwork.service.postStatus.IPostStatusService;
 import com.project.socialnetwork.service.user.IUserService;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,8 @@ public class PostController {
 
     @Autowired
     IUserService userService;
+    @Autowired
+    IPostStatusService postStatusService;
 
     @GetMapping("/get-post/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable Long id) {
@@ -35,10 +38,10 @@ public class PostController {
     }
 
     @GetMapping("/get-all-post-by-user-id/{id}")
-    public ResponseEntity<List<Post>> getAllPostByUserId(@PathVariable Long id){
-        AppUser guestUser  = userService.findById(id);
+    public ResponseEntity<List<Post>> getAllPostByUserId(@PathVariable Long id) {
+        AppUser guestUser = userService.findById(id);
 
-        return new ResponseEntity<>(postService.findAllByAppUser(guestUser),HttpStatus.OK);
+        return new ResponseEntity<>(postService.findAllByAppUser(guestUser), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-post")
@@ -92,13 +95,24 @@ public class PostController {
     }
 
 
-
     @GetMapping("/get-current-user")
     public ResponseEntity<AppUser> getCurrentUser() {
-        AppUser currentUser  = userService.getCurrentUser();
+        AppUser currentUser = userService.getCurrentUser();
         //delete password before send to client
-        currentUser.setPassword("");
+        currentUser.setPassword(null);
 
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-user-by-id/{id}")
+    public ResponseEntity<AppUser> getUserById(@PathVariable Long id) {
+        AppUser user = userService.findById(id);
+        user.setPassword(null);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-Post-status")
+    public ResponseEntity<List<PostStatus>> getAllPostStatus() {
+        return new ResponseEntity<>(postStatusService.findALl(), HttpStatus.OK);
     }
 }
