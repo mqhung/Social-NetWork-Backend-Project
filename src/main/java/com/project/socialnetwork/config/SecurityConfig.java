@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/register"
                         )
                 .permitAll()
-                .antMatchers("/hello","/relationship/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                .antMatchers("/hello","/relationship/**","/post/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN").antMatchers("/**").permitAll()
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
