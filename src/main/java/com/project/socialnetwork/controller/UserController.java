@@ -25,4 +25,14 @@ public class UserController {
     public ResponseEntity<AppUser> findById(@PathVariable Long id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
+
+    @GetMapping("/update/{id}")
+    public ResponseEntity<AppUser> getUserById(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<AppUser> updateUser(@PathVariable Long id, @RequestBody AppUser user){
+        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+    }
 }
