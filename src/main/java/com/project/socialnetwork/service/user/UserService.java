@@ -19,7 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Component
 @Service
 public class UserService implements IUserService{
     @Autowired
@@ -48,7 +47,7 @@ public class UserService implements IUserService{
 
     @Override
     public AppUser save(AppUser appUser) {
-//        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         if (appUser.getRoles() == null) {
             AppRole role = roleService.findRoleByName("ROLE_USER");
             Set<AppRole> roles = new HashSet<>();

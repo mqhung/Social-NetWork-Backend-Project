@@ -24,11 +24,11 @@ public class CommentController {
     @Autowired
     public CommentService commentService;
 
-    @PostMapping("/create/{postId}")
-    public ResponseEntity<Comment> createComment(@PathVariable Long postId, @RequestBody Comment comment) {
+    @PostMapping("/create")
+    public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
         AppUser currentUser = userService.getCurrentUser();
         comment.setAppUser(currentUser);
-        comment.setPostId(postId);
+//        comment.setPostId(postId);
         comment.setCreatedTime(Timestamp.valueOf(LocalDateTime.now()));
         Comment newComment = commentService.save(comment);
         return new ResponseEntity<>(newComment, HttpStatus.CREATED);
