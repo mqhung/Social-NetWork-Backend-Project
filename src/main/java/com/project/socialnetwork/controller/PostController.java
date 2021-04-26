@@ -116,9 +116,9 @@ public class PostController {
         return new ResponseEntity<>(postStatusService.findALl(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllMyFriendPost")
-    public ResponseEntity<List<Post>> getAllPostByUserId() {
-        return null;
+    @GetMapping("/get-all-friend-post")
+    public ResponseEntity<List<Post>> getAllFriendPost() {
+      List<Post> postList =   postService.findALl();
+        return new ResponseEntity<>(postList,HttpStatus.OK);
     }
-
 }
