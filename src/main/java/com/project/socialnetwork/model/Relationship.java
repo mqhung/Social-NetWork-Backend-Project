@@ -13,6 +13,7 @@ public class Relationship {
     private Long id;
     @ManyToOne
     private RelationshipStatus status;
+
     private Long userSendId;
     private Long userReceiveId;
 
@@ -21,5 +22,13 @@ public class Relationship {
 
     public Relationship(Long id, Long userReceiveId) {
 
+    }
+
+    public RelationshipStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RelationshipStatus status) {
+        this.status = status;
     }
 }

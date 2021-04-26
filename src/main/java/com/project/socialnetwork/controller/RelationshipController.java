@@ -104,7 +104,7 @@ public class RelationshipController {
         return relationship;
     }
 
-        @GetMapping("/listPendingFriend/{userId}")
+    @GetMapping("/listPendingFriend/{userId}")
     public ResponseEntity<Iterable<AppUser>> findMutualFriend(@PathVariable Long userId) {
         Iterable<Relationship> relationships = relationshipService.findAllByUserReceiveIdAndStatus(userId, statusService.findStatusById(1L));
 
@@ -115,4 +115,11 @@ public class RelationshipController {
         }
         return new ResponseEntity<Iterable<AppUser>>(users, HttpStatus.OK);
     }
+
+//    @GetMapping("/listSimilarFriend/{userId1}/{userId2}")
+//    public List<Long> findAllSimilarFriend(@PathVariable Long userId1, @PathVariable Long userId2) {
+//        AppUser user1 = userService.findById(userId1);
+//        AppUser user2 = userService.findById(userId2);
+//        return relationshipService.findAllSimilarFriend(user1,user2);
+//    }
 }
