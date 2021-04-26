@@ -15,7 +15,6 @@ public class CommentService implements ICommentService {
     @Autowired
     public CommentRepository commentRepository;
 
-
     @Override
     public List<Comment> findALl() {
         return commentRepository.findAll();
@@ -39,5 +38,9 @@ public class CommentService implements ICommentService {
     @Override
     public void deleteById(Long id) {
 
+    }
+    @Override
+    public List<Comment> findCommentByPostId(Long postId) {
+        return commentRepository.findCommentByPostId(postId);
     }
 }
