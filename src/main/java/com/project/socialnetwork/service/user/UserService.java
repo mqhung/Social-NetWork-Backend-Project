@@ -2,8 +2,10 @@ package com.project.socialnetwork.service.user;
 
 import com.project.socialnetwork.model.AppRole;
 import com.project.socialnetwork.model.AppUser;
+import com.project.socialnetwork.model.Relationship;
 import com.project.socialnetwork.model.jwt.UserPrinciple;
 import com.project.socialnetwork.repository.UserRepository;
+import com.project.socialnetwork.service.relationship.RelationshipService;
 import com.project.socialnetwork.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +32,9 @@ public class UserService implements IUserService{
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RelationshipService relationshipService;
 
     @Override
     public List<AppUser> findALl() {
@@ -47,7 +53,7 @@ public class UserService implements IUserService{
 
     @Override
     public AppUser save(AppUser appUser) {
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+//        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         if (appUser.getRoles() == null) {
             AppRole role = roleService.findRoleByName("ROLE_USER");
             Set<AppRole> roles = new HashSet<>();
@@ -95,6 +101,24 @@ public class UserService implements IUserService{
         user = this.findUserByUsername(userName);
         return user;
     }
-
-
+//
+//    public List<AppUser> showAllNoFriend(){
+//        List<AppUser> listUserNoFriend = new ArrayList<>();
+//        listUserNoFriend = userRepository.findAll();
+//        for (int i = 0; i < listUserNoFriend.size(); i++) {
+//            if(this.checkFriend(getCurrentUser().getId(), listUserNoFriend.get(i).getId()) == true){
+//             listUserNoFriend.remove(listUserNoFriend.get(i));
+//            }
+//        }
+//        return listUserNoFriend;
+//    }
+//    public boolean checkFriend(Long userSendId, Long userReceiveId) {
+//        boolean isFriend = false;
+//        if (relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userSendId, userReceiveId).getStatus().getId() == 2) {
+//            isFriend = true;
+//        } else if (relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userReceiveId, userSendId).getStatus().getId() == 2) {
+//            isFriend = true;
+//        } else isFriend = false;
+//        return isFriend;
+//    }
 }

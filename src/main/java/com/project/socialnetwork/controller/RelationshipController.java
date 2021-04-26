@@ -1,5 +1,4 @@
 package com.project.socialnetwork.controller;
-
 import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Relationship;
 import com.project.socialnetwork.model.RelationshipStatus;
@@ -72,7 +71,7 @@ public class RelationshipController {
     }
 
     @GetMapping("/checkFriend/{userSendId}/{userReceiveId}")
-    public ResponseEntity<Long> checkFriend(@PathVariable Long userSendId, @PathVariable Long userReceiveId) {
+    public ResponseEntity<?> checkFriend(@PathVariable Long userSendId, @PathVariable Long userReceiveId) {
         Long status;
         Relationship relationship = this.checkRelationship(userSendId, userReceiveId);
         if (relationship != null) {
@@ -114,7 +113,6 @@ public class RelationshipController {
         ) {
             users.add(userService.findById(relationship.getUserSendId()));
         }
-
         return new ResponseEntity<Iterable<AppUser>>(users, HttpStatus.OK);
     }
 }
