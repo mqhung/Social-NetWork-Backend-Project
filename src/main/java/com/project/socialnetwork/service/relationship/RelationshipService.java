@@ -1,10 +1,14 @@
 package com.project.socialnetwork.service.relationship;
 
+import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Relationship;
 import com.project.socialnetwork.model.RelationshipStatus;
 import com.project.socialnetwork.repository.IRelationshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RelationshipService implements IRelationshipService {
@@ -49,6 +53,44 @@ public class RelationshipService implements IRelationshipService {
     @Override
     public Iterable<Relationship> findAllByUserSendIdAndStatusOrUserReceiveIdAndStatus(Long userSendId, RelationshipStatus firstStatus, Long userReceiveId, RelationshipStatus secondStatus) {
         return relationshipRepository.findAllByUserSendIdAndStatusOrUserReceiveIdAndStatus(userSendId, firstStatus, userReceiveId, secondStatus);
+    }
+
+    @Override
+    public List<AppUser> findAllSimilarFriend(AppUser userSendId, AppUser userReceiveId) {
+        List<AppUser> userList = new ArrayList<>();
+        List<AppUser> userListFriend1 = findListFriendByUser(userSendId);
+        List<AppUser> userListFriend2 = findListFriendByUser(userReceiveId);
+        for (AppUser friend1 : userListFriend1) {
+            for (AppUser friend2 : userListFriend2) {
+                if (friend1 == friend2) {
+                    userList.add(friend1);
+                }
+            }
+        }
+        return userList;
+    }
+
+
+    @Override
+    public Iterable<Relationship> findAllByUserSendOrUserReceiver(AppUser userSendId, AppUser userReceiveId) {
+        return relationshipRepository.findAllByUserSendIdOrUserReceiveId(userSendId, userReceiveId);
+    }
+
+    @Override
+    public List<AppUser> findListFriendByUser(AppUser user) {
+//        List<AppUser> userList = new ArrayList<>();
+//        if (user != null) {
+//            List<Relationship> list = findAllByUserSendOrUserReceiver(user, user);
+//            for (Relationship friend : list) {
+//                if (friend.getUserSendId() == user) {
+//                    userList.add(friend.getUserReceiveId());
+//                } else {
+//                    userList.add(friend.getUserSendId());
+//                }
+//            }
+//            return userList;
+//        }
+        return null;
     }
 
 
