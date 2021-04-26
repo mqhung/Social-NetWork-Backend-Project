@@ -1,4 +1,5 @@
 package com.project.socialnetwork.controller;
+
 import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Relationship;
 import com.project.socialnetwork.model.RelationshipStatus;
@@ -122,4 +123,29 @@ public class RelationshipController {
 //        AppUser user2 = userService.findById(userId2);
 //        return relationshipService.findAllSimilarFriend(user1,user2);
 //    }
+
+    public boolean checkFriendship(Long userSendId, Long userReceiveId) {
+        boolean isFriend = false;
+        if (relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userSendId, userReceiveId).getStatus().getId() == 2) {
+            isFriend = true;
+        } else if (relationshipService.findRelationshipByUserSendIdAndUserReceiveId(userReceiveId, userSendId).getStatus().getId() == 2) {
+            isFriend = true;
+        } else isFriend = false;
+        return isFriend;
+    }
+    @GetMapping("/listNoFriend")
+        public List<AppUser> showAllNoFriend(){
+        List<AppUser> listUserNoFriend = new ArrayList<>();
+        listUserNoFriend = userService.findALl();
+        AppUser currentUser = userService.getCurrentUser();
+        for (AppUser user: listUserNoFriend) {
+            if(this.checkFriendship(currentUser.getId(), user.getId())){
+                listUserNoFriend.remove(user);
+            }
+            System.out.println(this.checkFriendship(currentUser.getId(),user.getId()));
+        }
+
+        return listUserNoFriend;
+    }
+
 }
