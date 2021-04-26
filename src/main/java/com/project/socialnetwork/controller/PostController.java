@@ -115,4 +115,10 @@ public class PostController {
     public ResponseEntity<List<PostStatus>> getAllPostStatus() {
         return new ResponseEntity<>(postStatusService.findALl(), HttpStatus.OK);
     }
+
+    @GetMapping("/getAllMyFriendPost")
+    public ResponseEntity<List<Post>> getAllPostByUserId() {
+        return null;
+    }
+
 }
