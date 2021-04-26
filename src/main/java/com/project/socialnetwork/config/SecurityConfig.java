@@ -27,8 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
 //    @PostConstruct
 //    public void init(){
@@ -69,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -82,9 +80,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/login",
                         "/register")
                 .permitAll()
-                .antMatchers("/hello", "/post/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                .antMatchers("/hello", "/post/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN").antMatchers("/**").permitAll()
-                .and().csrf().disable();
+                .and().csrf().disable()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
         http.sessionManagement()

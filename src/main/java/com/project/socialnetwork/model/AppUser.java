@@ -23,7 +23,7 @@ public class AppUser {
 
     @NotBlank
     private String username;
-    @Size(min = 6, max = 32)
+
     private String password;
     private Date birthday;
 
