@@ -17,7 +17,7 @@ public class LikePostService implements ILikePostService {
 
     @Override
     public List<LikePost> findALl() {
-        return null;
+        return likePostRepository.findAll();
     }
 
     @Override
@@ -27,21 +27,21 @@ public class LikePostService implements ILikePostService {
 
     @Override
     public LikePost findById(Long id) {
-        return null;
+        return likePostRepository.findById(id).get();
     }
 
     @Override
     public LikePost save(LikePost likePost) {
-        return null;
+        return likePostRepository.save(likePost);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        likePostRepository.deleteById(id);
     }
 
     @Override
     public List<LikePost> findLikePostByPostId(Long postId) {
-        return null;
+        return likePostRepository.findLikePostsByPostId(postId);
     }
 }
