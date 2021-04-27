@@ -1,7 +1,6 @@
 package com.project.socialnetwork.repository;
 
 import com.project.socialnetwork.model.Comment;
-import jdk.internal.dynalink.linker.LinkerServices;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
