@@ -13,16 +13,15 @@ public class LikePost {
 
     private Long postId;
 
-    @ManyToOne
-    private AppUser appUser;
+    private Long likerId;
 
     public LikePost() {
     }
 
-    public LikePost(Long id, Long postId, AppUser appUser) {
+    public LikePost(Long id, Long postId, Long likerId) {
         this.id = id;
         this.postId = postId;
-        this.appUser = appUser;
+        this.likerId = likerId;
     }
 
     public Long getId() {
@@ -41,11 +40,11 @@ public class LikePost {
         this.postId = postId;
     }
 
-    public AppUser getAppUser() {
-        return appUser;
+    public Long getLikerId() {
+        return likerId;
     }
 
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
+    public void setLikerId(Long likerId) {
+        this.likerId = likerId;
     }
 }
