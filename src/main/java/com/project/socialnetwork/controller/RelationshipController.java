@@ -144,7 +144,6 @@ public class RelationshipController {
             }
             System.out.println(this.checkFriendship(currentUser.getId(),user.getId()));
         }
-
         return listUserNoFriend;
     }
 
