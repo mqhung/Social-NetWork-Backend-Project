@@ -27,7 +27,7 @@ public class CommentService implements ICommentService {
 
     @Override
     public Comment findById(Long id) {
-        return null;
+        return commentRepository.findById(id).get();
     }
 
     @Override
@@ -37,8 +37,9 @@ public class CommentService implements ICommentService {
 
     @Override
     public void deleteById(Long id) {
-
+        commentRepository.deleteById(id);
     }
+
     @Override
     public List<Comment> findCommentByPostId(Long postId) {
         return commentRepository.findCommentByPostId(postId);

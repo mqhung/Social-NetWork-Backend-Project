@@ -2,7 +2,6 @@ package com.project.socialnetwork.controller;
 
 import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Comment;
-import com.project.socialnetwork.repository.UserRepository;
 import com.project.socialnetwork.service.comment.CommentService;
 import com.project.socialnetwork.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +40,29 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<Comment> onLoadComment(){
+    public ResponseEntity<Comment> onLoadComment() {
         Comment comment = new Comment();
         comment.setAppUser(userService.getCurrentUser());
         comment.setContent("");
+        return new ResponseEntity<>(comment, HttpStatus.OK);
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Comment> editComment(@PathVariable Long id, @RequestBody Comment comment) {
+        comment.setId(id);
+        commentService.save(comment);
+        return new ResponseEntity<>(comment, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Comment> deleteComment(@PathVariable Long id) {
+        commentService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Comment> getById(@PathVariable Long id) {
+        Comment comment = commentService.findById(id);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
