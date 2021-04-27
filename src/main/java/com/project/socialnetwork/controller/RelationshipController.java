@@ -157,6 +157,13 @@ public class RelationshipController {
             }
         }
         resultList.remove(currentUser);
+        for (AppUser appUser: resultList){
+            Relationship relationship = checkRelationship(currentUser.getId(), appUser.getId());
+            //if has any relationship with current user, remove that user!
+            if (relationship!=null){
+                resultList.remove(appUser);
+            }
+        }
         return new ResponseEntity<>(resultList, HttpStatus.OK);
 
     }
