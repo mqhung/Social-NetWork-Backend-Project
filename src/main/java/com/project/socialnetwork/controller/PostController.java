@@ -7,7 +7,6 @@ import com.project.socialnetwork.model.PostStatus;
 import com.project.socialnetwork.service.postService.IPostService;
 import com.project.socialnetwork.service.postStatus.IPostStatusService;
 import com.project.socialnetwork.service.user.IUserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -118,7 +117,7 @@ public class PostController {
 
     @GetMapping("/get-all-friend-post")
     public ResponseEntity<List<Post>> getAllFriendPost() {
-      List<Post> postList =   postService.findALl();
-        return new ResponseEntity<>(postList,HttpStatus.OK);
+        List<Post> postList = postService.findALl();
+        return new ResponseEntity<>(postList, HttpStatus.OK);
     }
 }
