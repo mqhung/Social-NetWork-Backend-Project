@@ -45,7 +45,6 @@ public class JwtService {
     }
 
     public String getUserNameFromJwtToken(String token) {
-
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)

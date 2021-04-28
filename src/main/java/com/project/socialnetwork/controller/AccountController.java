@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
@@ -30,12 +31,17 @@ public class AccountController {
     @Autowired
     private IRoleService roleService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/register")
     public ResponseEntity<AppUser> registerUser(@RequestBody AppUser user) {
         boolean isRegisted = userService.existsUserByUsername(user.getUsername());
         if (isRegisted){
             return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAvatar("https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png");
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
@@ -57,7 +63,6 @@ public class AccountController {
 
     @GetMapping("/hello")
     public ResponseEntity<?> hello(){
-        ResponseEntity<?> rs =  new ResponseEntity<>(userService.findALl(), HttpStatus.OK);
-        return rs;
+        return new ResponseEntity<>(userService.findALl(), HttpStatus.OK);
     }
 }

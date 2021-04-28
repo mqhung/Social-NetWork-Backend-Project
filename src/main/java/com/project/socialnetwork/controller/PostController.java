@@ -7,19 +7,27 @@ import com.project.socialnetwork.model.PostStatus;
 import com.project.socialnetwork.service.postService.IPostService;
 import com.project.socialnetwork.service.postStatus.IPostStatusService;
 import com.project.socialnetwork.service.user.IUserService;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
 @RequestMapping("/post")
 @CrossOrigin("*")
 public class PostController {
+
+    @Autowired
+    RelationshipController relationshipController;
 
     @Autowired
     IPostService postService;
@@ -117,7 +125,37 @@ public class PostController {
 
     @GetMapping("/get-all-friend-post")
     public ResponseEntity<List<Post>> getAllFriendPost() {
-        List<Post> postList = postService.findALl();
+        List<AppUser> myFriends = relationshipController.findAllFriend(userService.getCurrentUser().getId());
+
+        AppUser currentUser = userService.getCurrentUser();
+        List<Post> postList = postService.findAllByAppUser(currentUser);
+        for (AppUser appUser : myFriends) {
+            postList.addAll(postService.findAllByAppUser(appUser));
+        }
+
+        Collections.sort(postList, new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                if (o1.getCreatedTime().getTime() > o2.getCreatedTime().getTime()) {
+                    return 1;
+                } else if (o1.getCreatedTime().getTime() < o2.getCreatedTime().getTime()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
+
+    @GetMapping("find-post-by-content/{id}/{keyWord}")
+    public ResponseEntity<?> findPostByContent(@PathVariable String keyWord, @PathVariable Long id) {
+        String content = "%" + keyWord + "%";
+
+        List<Post> postList = postService.findPostByContent(id, content);
+
+        return new ResponseEntity<>(postList, HttpStatus.OK);
+    }
+
+
 }
