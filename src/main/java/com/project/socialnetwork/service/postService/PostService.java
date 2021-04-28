@@ -38,11 +38,16 @@ public class PostService implements IPostService {
 
     @Override
     public void deleteById(Long id) {
-    postRepository.deleteById(id);
+        postRepository.deleteById(id);
     }
 
     @Override
     public List<Post> findAllByAppUser(AppUser user) {
         return postRepository.findAllByAppUser(user);
+    }
+
+    @Override
+    public List<Post> findPostByContent(Long id, String content) {
+        return postRepository.findPostByContent(id, content);
     }
 }

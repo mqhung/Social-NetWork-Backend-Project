@@ -135,7 +135,7 @@ public class RelationshipController {
         return new ResponseEntity<>(similarFriendList, HttpStatus.OK);
     }
 
-    //get 10 suggestion friend
+    //get SuggestionFriend is friends of my friend
     @GetMapping("/getSuggestionFriend")
     public ResponseEntity<List<AppUser>> getSuggestionFriend() {
 
