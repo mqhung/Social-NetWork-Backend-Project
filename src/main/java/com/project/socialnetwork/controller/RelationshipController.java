@@ -92,7 +92,7 @@ public class RelationshipController {
             } else users.add(userService.findById(relationship.getUserSendId()));
 
         }
-        return  users;
+        return users;
     }
 
     public Relationship checkRelationship(Long userSendId, Long userReceiveId) {
@@ -118,19 +118,12 @@ public class RelationshipController {
         return new ResponseEntity<Iterable<AppUser>>(users, HttpStatus.OK);
     }
 
-//    @GetMapping("/listSimilarFriend/{userId1}/{userId2}")
-//    public List<Long> findAllSimilarFriend(@PathVariable Long userId1, @PathVariable Long userId2) {
-//        AppUser user1 = userService.findById(userId1);
-//        AppUser user2 = userService.findById(userId2);
-//        return relationshipService.findAllSimilarFriend(user1,user2);
-//    }
-
     @GetMapping("/getSimilarFriend/{id}")
     public ResponseEntity<List<AppUser>> getSimilarFriend(@PathVariable Long id) {
         AppUser currentUser = this.userService.getCurrentUser();
 
-        List<AppUser> myListFriend =  findAllFriend(currentUser.getId());
-        List<AppUser> guestListFriend =  findAllFriend(id);
+        List<AppUser> myListFriend = findAllFriend(currentUser.getId());
+        List<AppUser> guestListFriend = findAllFriend(id);
         List<AppUser> similarFriendList = new ArrayList<>();
         for (AppUser myFriend : myListFriend) {
             for (AppUser guestFriend : guestListFriend) {
@@ -140,5 +133,49 @@ public class RelationshipController {
             }
         }
         return new ResponseEntity<>(similarFriendList, HttpStatus.OK);
+    }
+
+    //get 10 suggestion friend
+    @GetMapping("/getSuggestionFriend")
+    public ResponseEntity<List<AppUser>> getSuggestionFriend() {
+
+        AppUser currentUser = this.userService.getCurrentUser();
+
+        List<AppUser> myFriendList = this.findAllFriend(currentUser.getId());
+        List<AppUser> friendListOfMyFriend = new ArrayList<>();
+        for (AppUser appUser : myFriendList) {
+            List<AppUser> listFriend = findAllFriend(appUser.getId());
+            friendListOfMyFriend.addAll(listFriend);
+        }
+
+        List<AppUser> resultList = new ArrayList<>();
+
+        for (int i = 0; i < friendListOfMyFriend.size(); i++) {
+
+            if (!isExist(resultList, friendListOfMyFriend.get(i))) {
+                resultList.add(friendListOfMyFriend.get(i));
+            }
+        }
+        resultList.remove(currentUser);
+        for (AppUser appUser: resultList){
+            Relationship relationship = checkRelationship(currentUser.getId(), appUser.getId());
+            //if has any relationship with current user, remove that user!
+            if (relationship!=null){
+                resultList.remove(appUser);
+            }
+        }
+        return new ResponseEntity<>(resultList, HttpStatus.OK);
+
+    }
+
+
+    private boolean isExist(List<AppUser> appUserList, AppUser appUser) {
+        for (AppUser appUser1 : appUserList) {
+            if (appUser.getId() == appUser1.getId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
