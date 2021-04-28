@@ -27,6 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 //    @PostConstruct
 //    public void init(){
@@ -83,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/post/get-all-post-by-user-id/**",
                         "/comments/show/**")
                 .permitAll()
-                .antMatchers("/hello", "/post/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/hello","/relationship/**","/post/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN").antMatchers("/**").permitAll()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
