@@ -41,17 +41,10 @@ public class CommentController {
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 
-//    @PostMapping
-//    public ResponseEntity<Comment> onLoadComment() {
-//        Comment comment = new Comment();
-//        comment.setAppUser(userService.getCurrentUser());
-//        comment.setContent("");
-//        return new ResponseEntity<>(comment, HttpStatus.OK);
-//    }
-
     @PutMapping("/editComment/{id}")
     public ResponseEntity<Comment> editComment(@PathVariable Long id, @RequestBody Comment comment) {
         comment.setId(id);
+        comment.setCreatedTime(Timestamp.valueOf(LocalDateTime.now()));
         commentService.save(comment);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
