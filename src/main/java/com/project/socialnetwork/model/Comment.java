@@ -22,4 +22,7 @@ public class Comment {
 
     private Timestamp createdTime;
 
+    private int commentLike;
+
+    private int commentDislike;
 }

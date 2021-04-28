@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ICommentService extends IService<Comment> {
     List<Comment> findCommentByPostId(Long postId);
+    Iterable<Comment> findCommentByCommenterId(Long userId);
 }
