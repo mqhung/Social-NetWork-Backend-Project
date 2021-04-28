@@ -11,17 +11,19 @@ public class LikePost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long postId;
+    @ManyToOne
+    private Post post;
 
-    private Long likerId;
+    @ManyToOne
+    private AppUser user;
 
     public LikePost() {
     }
 
-    public LikePost(Long id, Long postId, Long likerId) {
+    public LikePost(Long id, Post post, AppUser user) {
         this.id = id;
-        this.postId = postId;
-        this.likerId = likerId;
+        this.post = post;
+        this.user = user;
     }
 
     public Long getId() {
@@ -32,19 +34,19 @@ public class LikePost {
         this.id = id;
     }
 
-    public Long getPostId() {
-        return postId;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
-    public Long getLikerId() {
-        return likerId;
+    public AppUser getUser() {
+        return user;
     }
 
-    public void setLikerId(Long likerId) {
-        this.likerId = likerId;
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 }

@@ -20,23 +20,23 @@ public class Post {
     private String image;
     @ManyToOne
     private PostStatus status;
-    private int postLike;
+//    private int postLike;
 
-    public int getPostLike() {
-        return postLike;
-    }
+//    public int getPostLike() {
+//        return postLike;
+//    }
+//
+//    public void setPostLike(int postLike) {
+//        this.postLike = postLike;
+//    }
 
-    public void setPostLike(int postLike) {
-        this.postLike = postLike;
-    }
+//    public int getPostDislike() {
+//        return postDislike;
+//    }
+//
+//    public void setPostDislike(int postDislike) {
+//        this.postDislike = postDislike;
+//    }
 
-    public int getPostDislike() {
-        return postDislike;
-    }
-
-    public void setPostDislike(int postDislike) {
-        this.postDislike = postDislike;
-    }
-
-    private int postDislike;
+//    private int postDislike;
 }
