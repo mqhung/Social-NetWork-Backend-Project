@@ -3,6 +3,7 @@ package com.project.socialnetwork.controller;
 import com.project.socialnetwork.model.AppUser;
 import com.project.socialnetwork.model.Comment;
 import com.project.socialnetwork.service.comment.CommentService;
+import com.project.socialnetwork.service.comment.ICommentService;
 import com.project.socialnetwork.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,10 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    public IUserService userService;
+    private IUserService userService;
+
     @Autowired
-    public CommentService commentService;
+    private ICommentService commentService;
 
     @PostMapping("/create")
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
@@ -39,15 +41,15 @@ public class CommentController {
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Comment> onLoadComment() {
-        Comment comment = new Comment();
-        comment.setAppUser(userService.getCurrentUser());
-        comment.setContent("");
-        return new ResponseEntity<>(comment, HttpStatus.OK);
-    }
+//    @PostMapping
+//    public ResponseEntity<Comment> onLoadComment() {
+//        Comment comment = new Comment();
+//        comment.setAppUser(userService.getCurrentUser());
+//        comment.setContent("");
+//        return new ResponseEntity<>(comment, HttpStatus.OK);
+//    }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/editComment/{id}")
     public ResponseEntity<Comment> editComment(@PathVariable Long id, @RequestBody Comment comment) {
         comment.setId(id);
         commentService.save(comment);
