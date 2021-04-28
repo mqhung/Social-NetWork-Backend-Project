@@ -41,6 +41,7 @@ public class AccountController {
             return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAvatar("https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png");
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
