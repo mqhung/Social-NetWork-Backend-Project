@@ -53,7 +53,6 @@ public class UserService implements IUserService{
 
     @Override
     public AppUser save(AppUser appUser) {
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         if (appUser.getRoles() == null) {
             AppRole role = roleService.findRoleByName("ROLE_USER");
             Set<AppRole> roles = new HashSet<>();
