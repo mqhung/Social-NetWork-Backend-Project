@@ -101,6 +101,11 @@ public class UserService implements IUserService{
         user = this.findUserByUsername(userName);
         return user;
     }
+
+    @Override
+    public List<AppUser> searchUserByName(String name) {
+        return userRepository.findAppUserByName(name);
+    }
 //
 //    public List<AppUser> showAllNoFriend(){
 //        List<AppUser> listUserNoFriend = new ArrayList<>();
