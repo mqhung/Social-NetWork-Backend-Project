@@ -19,4 +19,5 @@ public interface IRelationshipRepository extends JpaRepository<Relationship, Lon
     Iterable<Relationship> findAllByUserSendIdAndStatusOrUserReceiveIdAndStatus(Long userSendId, RelationshipStatus firstStatus, Long userReceiveId, RelationshipStatus secondStatus);
 
     List<Relationship> findAllByUserSendIdOrUserReceiveId(AppUser userSendId, AppUser userReceiveId);
+
 }

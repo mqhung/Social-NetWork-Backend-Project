@@ -62,7 +62,6 @@ public class AccountController {
 
     @GetMapping("/hello")
     public ResponseEntity<?> hello(){
-        ResponseEntity<?> rs =  new ResponseEntity<>(userService.findALl(), HttpStatus.OK);
-        return rs;
+        return new ResponseEntity<>(userService.findALl(), HttpStatus.OK);
     }
 }

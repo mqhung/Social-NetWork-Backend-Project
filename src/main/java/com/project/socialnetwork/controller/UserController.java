@@ -35,4 +35,10 @@ public class UserController {
     public ResponseEntity<AppUser> updateUser(@PathVariable Long id, @RequestBody AppUser user){
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<AppUser>> searchUserByName(@RequestParam String name){
+        name = "%" + name + "%";
+        return new ResponseEntity<>(userService.searchUserByName(name), HttpStatus.OK);
+    }
 }
