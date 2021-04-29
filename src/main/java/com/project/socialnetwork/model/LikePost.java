@@ -2,7 +2,10 @@ package com.project.socialnetwork.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -11,19 +14,11 @@ public class LikePost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Post post;
+    private Long postId;
 
-    @ManyToOne
-    private AppUser user;
+    private Long likerId;
 
     public LikePost() {
-    }
-
-    public LikePost(Long id, Post post, AppUser user) {
-        this.id = id;
-        this.post = post;
-        this.user = user;
     }
 
     public Long getId() {
@@ -34,19 +29,19 @@ public class LikePost {
         this.id = id;
     }
 
-    public Post getPost() {
-        return post;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
-    public AppUser getUser() {
-        return user;
+    public Long getLikerId() {
+        return likerId;
     }
 
-    public void setUser(AppUser user) {
-        this.user = user;
+    public void setLikerId(Long likerId) {
+        this.likerId = likerId;
     }
 }

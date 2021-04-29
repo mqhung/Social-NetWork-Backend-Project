@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ILikePostService extends IService<LikePost> {
     List<LikePost> findLikePostByPostId(Long postId);
-    LikePost findByPostAndUser (Post post, AppUser user);
-    int countAllByPost(Post post);
-    List<LikePost> findAllByPost(Post post);
-    void deleteLoveByPostId(Long id);
+//    LikePost findByPostAndUser (Post post, AppUser user);
+//    int countAllByPost(Post post);
+//    List<LikePost> findAllByPost(Post post);
+//    void deleteLoveByPostId(Long id);
 }

@@ -14,13 +14,13 @@ import java.util.List;
 public interface ILikePostRepository extends JpaRepository<LikePost, Long> {
     List<LikePost> findLikePostsByPostId(Long postId);
 
-    int countAllByPost(Post post);
+//    int countAllByPost(Post post);
 
-    @Modifying
-    @Query("DELETE from LikePost l where l.post.id = ?1")
-    void deleteLoveByPostId(Long id);
+//    @Modifying
+//    @Query("DELETE from LikePost l where l.post.id = ?1")
+//    void deleteLoveByPostId(Long id);
 
-    LikePost findByPostAndUser(Post post, AppUser user);
-
-    List<LikePost> findAllByPost(Post post);
+//    LikePost findByPostAndUser(Post post, AppUser user);
+//
+//    List<LikePost> findAllByPost(Post post);
 }

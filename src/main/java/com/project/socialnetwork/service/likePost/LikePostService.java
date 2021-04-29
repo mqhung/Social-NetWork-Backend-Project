@@ -47,23 +47,23 @@ public class LikePostService implements ILikePostService {
         return likePostRepository.findLikePostsByPostId(postId);
     }
 
-    @Override
-    public LikePost findByPostAndUser(Post post, AppUser user) {
-        return likePostRepository.findByPostAndUser(post, user);
-    }
+//    @Override
+//    public LikePost findByPostAndUser(Post post, AppUser user) {
+//        return likePostRepository.findByPostAndUser(post, user);
+//    }
 
-    @Override
-    public int countAllByPost(Post post) {
-        return likePostRepository.countAllByPost(post);
-    }
+//    @Override
+//    public int countAllByPost(Post post) {
+//        return likePostRepository.countAllByPost(post);
+//    }
 
-    @Override
-    public List<LikePost> findAllByPost(Post post) {
-        return likePostRepository.findAllByPost(post);
-    }
+//    @Override
+//    public List<LikePost> findAllByPost(Post post) {
+//        return likePostRepository.findAllByPost(post);
+//    }
 
-    @Override
-    public void deleteLoveByPostId(Long id) {
-        likePostRepository.deleteLoveByPostId(id);
-    }
+//    @Override
+//    public void deleteLoveByPostId(Long id) {
+//        likePostRepository.deleteLoveByPostId(id);
+//    }
 }
