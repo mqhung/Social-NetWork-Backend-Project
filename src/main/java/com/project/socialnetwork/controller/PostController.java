@@ -57,6 +57,18 @@ public class PostController {
         AppUser currentUser = userService.getCurrentUser();
 
         List<Post> postList = postService.findAllByAppUser(currentUser);
+        Collections.sort(postList, new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                if (o1.getCreatedTime().getTime() > o2.getCreatedTime().getTime()) {
+                    return 1;
+                } else if (o1.getCreatedTime().getTime() < o2.getCreatedTime().getTime()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+
 
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
@@ -153,6 +165,18 @@ public class PostController {
         String content = "%" + keyWord + "%";
 
         List<Post> postList = postService.findPostByContent(id, content);
+
+        Collections.sort(postList, new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                if (o1.getCreatedTime().getTime() > o2.getCreatedTime().getTime()) {
+                    return 1;
+                } else if (o1.getCreatedTime().getTime() < o2.getCreatedTime().getTime()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
 
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
