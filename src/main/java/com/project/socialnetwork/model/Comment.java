@@ -24,5 +24,4 @@ public class Comment {
 
     private int commentLike;
 
-    private int commentDislike;
 }
