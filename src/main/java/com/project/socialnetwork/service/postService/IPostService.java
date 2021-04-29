@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface IPostService extends IService<Post> {
     List<Post> findAllByAppUser(AppUser user);
+    List<Post> findPostByContent(Long id, String content);
 
 }
