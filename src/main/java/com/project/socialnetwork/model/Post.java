@@ -21,6 +21,7 @@ public class Post {
     @ManyToOne
     private PostStatus status;
     private int postLike;
+    private int postDislike;
 
     public int getPostLike() {
         return postLike;
@@ -38,5 +39,5 @@ public class Post {
         this.postDislike = postDislike;
     }
 
-    private int postDislike;
+
 }

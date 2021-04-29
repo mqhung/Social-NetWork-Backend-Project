@@ -19,13 +19,13 @@ import java.util.List;
 @RequestMapping("/likepost")
 public class LikePostController {
     @Autowired
-    ILikePostService likePostService;
+    private ILikePostService likePostService;
 
     @Autowired
-    IUserService userService;
+    private IUserService userService;
 
     @Autowired
-    IPostService postService;
+    private IPostService postService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<LikePost>> getAllLikePost() {
@@ -64,4 +64,49 @@ public class LikePostController {
         }
         return new ResponseEntity<>(likerList, HttpStatus.OK);
     }
+
+//    @GetMapping
+//    public Iterable<LikePost> getAll() {
+//        return likePostService.findALl();
+//    }
+//
+//    @PostMapping
+//    public void like(@RequestBody LikePost likePost) {
+//        likePostService.save(likePost);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public void unlike(@PathVariable Long id) {
+//        likePostService.deleteById(id);
+//    }
+//
+//
+//    @GetMapping("/find")
+//    public LikePost findByPostAndUser(@RequestParam("id1") Long id1, @RequestParam("id2") Long id2) {
+//        LikePost likePost;
+//        Post post;
+//        AppUser user;
+//        try {
+//            post = postService.findById(id1);
+//            user = userService.findById(id2);
+//            likePost = likePostService.findByPostAndUser(post, user);
+//            return likePost;
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
+//
+//    @GetMapping("/count/{id}")
+//    public int countLikeByPost(@PathVariable Long id) {
+//        Post post = postService.findById(id);
+//        return likePostService.countAllByPost(post);
+//    }
+//
+//    @GetMapping("/list/{id}")
+//    public List<LikePost> findAllByPost(@PathVariable Long id) {
+//        Post post = postService.findById(id);
+//        if (post != null) {
+//            return likePostService.findAllByPost(post);
+//        } else return null;
+//    }
 }

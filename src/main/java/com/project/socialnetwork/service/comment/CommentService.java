@@ -44,4 +44,9 @@ public class CommentService implements ICommentService {
     public List<Comment> findCommentByPostId(Long postId) {
         return commentRepository.findCommentByPostId(postId);
     }
+
+    @Override
+    public Iterable<Comment> findCommentByCommenterId(Long userId) {
+        return commentRepository.findCommentsByAppUserId(userId);
+    }
 }
