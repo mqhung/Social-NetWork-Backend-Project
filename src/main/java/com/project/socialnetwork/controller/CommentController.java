@@ -29,7 +29,6 @@ public class CommentController {
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
         AppUser currentUser = userService.getCurrentUser();
         comment.setAppUser(currentUser);
-//        comment.setPostId(postId);
         comment.setCreatedTime(Timestamp.valueOf(LocalDateTime.now()));
         Comment newComment = commentService.save(comment);
         return new ResponseEntity<>(newComment, HttpStatus.CREATED);

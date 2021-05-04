@@ -7,7 +7,6 @@ import com.project.socialnetwork.model.PostStatus;
 import com.project.socialnetwork.service.postService.IPostService;
 import com.project.socialnetwork.service.postStatus.IPostStatusService;
 import com.project.socialnetwork.service.user.IUserService;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
