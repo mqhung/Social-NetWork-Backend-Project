@@ -21,6 +21,9 @@ public class SocialNetworkApplication {
     @Autowired
     private IRoleService roleService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public static void main(String[] args) {
         SpringApplication.run(SocialNetworkApplication.class, args);
     }
@@ -46,7 +49,7 @@ public class SocialNetworkApplication {
             roleAdmin.setName("ROLE_ADMIN");
             roles.add(roleAdmin);
             admin.setUsername("admin");
-            admin.setPassword("123456");
+            admin.setPassword(passwordEncoder.encode("123456"));
             admin.setBlocked(false);
             admin.setRoles(roles);
             userService.save(admin);
