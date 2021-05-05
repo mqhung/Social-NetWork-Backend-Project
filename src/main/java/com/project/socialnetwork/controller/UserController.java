@@ -5,6 +5,8 @@ import com.project.socialnetwork.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +51,7 @@ public class UserController {
     @PutMapping("/update/{username}/password")
     public ResponseEntity<AppUser> updatePassword(@PathVariable String username, @RequestBody AppUser user){
         AppUser appUser = this.userService.findUserByUsername(username);
+
         user.setId(appUser.getId());
         user.setUsername(appUser.getUsername());
         user.setPassword(passwordEncoder.encode(appUser.getPassword()));
@@ -59,5 +62,13 @@ public class UserController {
         user.setGender(appUser.getGender());
         user.setRoles(appUser.getRoles());
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+    }
+
+    @PutMapping("/resetPassword")
+    private ResponseEntity<AppUser> resetPassword( @RequestBody AppUser appUser) {
+        AppUser currentUser = userService.getCurrentUser();
+        AppUser oldAppUser = userService.findUserByUsername(currentUser.getUsername());
+        oldAppUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        return new ResponseEntity<>(userService.save(oldAppUser), HttpStatus.OK);
     }
 }
