@@ -84,7 +84,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/post/get-user-by-id/**",
                         "/post/get-all-post-by-user-id/**",
                         "/comments/show/**",
-                        "/find-post-by-content/**")
+                        "/post/find-post-by-content/**",
+                        "/app/**",
+                        "/message/**",
+                        "/app/message/**",
+                        "/post/**",
+                        "/socket",
+                        "/socket/**")
                 .permitAll()
                 .antMatchers("/hello","/relationship/**","/post/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN").antMatchers("/**").permitAll()

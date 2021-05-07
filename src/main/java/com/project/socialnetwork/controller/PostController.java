@@ -47,8 +47,20 @@ public class PostController {
     @GetMapping("/get-all-post-by-user-id/{id}")
     public ResponseEntity<List<Post>> getAllPostByUserId(@PathVariable Long id) {
         AppUser guestUser = userService.findById(id);
+        List<Post> postList = postService.findAllByAppUser(guestUser);
+        postList.sort(new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                if (o1.getCreatedTime().getTime() > o2.getCreatedTime().getTime()) {
+                    return 1;
+                } else if (o1.getCreatedTime().getTime() < o2.getCreatedTime().getTime()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+        return new ResponseEntity<>(postList, HttpStatus.OK);
 
-        return new ResponseEntity<>(postService.findAllByAppUser(guestUser), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-post")
@@ -57,7 +69,7 @@ public class PostController {
         AppUser currentUser = userService.getCurrentUser();
 
         List<Post> postList = postService.findAllByAppUser(currentUser);
-        Collections.sort(postList, new Comparator<Post>() {
+        postList.sort(new Comparator<Post>() {
             @Override
             public int compare(Post o1, Post o2) {
                 if (o1.getCreatedTime().getTime() > o2.getCreatedTime().getTime()) {
@@ -145,7 +157,7 @@ public class PostController {
             postList.addAll(postService.findAllByAppUser(appUser));
         }
 
-        Collections.sort(postList, new Comparator<Post>() {
+        postList.sort(new Comparator<Post>() {
             @Override
             public int compare(Post o1, Post o2) {
                 if (o1.getCreatedTime().getTime() > o2.getCreatedTime().getTime()) {
@@ -166,7 +178,7 @@ public class PostController {
 
         List<Post> postList = postService.findPostByContent(id, content);
 
-        Collections.sort(postList, new Comparator<Post>() {
+        postList.sort(new Comparator<Post>() {
             @Override
             public int compare(Post o1, Post o2) {
                 if (o1.getCreatedTime().getTime() > o2.getCreatedTime().getTime()) {
