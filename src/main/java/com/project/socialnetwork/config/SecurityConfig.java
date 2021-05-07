@@ -80,6 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/",
                         "/login",
+                        "/socket/**",
+                        "/api/**",
                         "/register",
                         "/post/get-user-by-id/**",
                         "/post/get-all-post-by-user-id/**",
