@@ -91,8 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/message/**",
                         "/app/message/**",
                         "/post/**",
-                        "/socket",
-                        "/socket/**")
+                        "/socket")
                 .permitAll()
                 .antMatchers("/hello","/relationship/**","/post/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN").antMatchers("/**").permitAll()
